@@ -5,15 +5,16 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-RUN apk update
-RUN apk add postgresql-client
-
+RUN apk add --update --no-cache postgresql-client
 RUN apk add --update --no-cache --virtual .temp-build-deps \
-        gcc libc-dev linux-headers postgresql-dev
+        gcc libc-dev linux-headers postgresql-dev \
+        libffi-dev python3-dev
 
-COPY requirements.txt ./
+COPY ./requirements.txt ./
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN apk del .temp-build-deps
+
 COPY . .
 
 RUN mkdir -p ./media

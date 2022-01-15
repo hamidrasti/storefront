@@ -1,34 +1,28 @@
-version: "3.9"
+version: "3"
 
 services:
   app:
     build:
       context: .
-    volumes:
-      - .:/app
     ports:
       - "8000:8000"
+    volumes:
+      - .:/app
     command: >
       sh -c "python manage.py wait_for_db &&
              python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"
     environment:
-      - DB_HOST=db
+      - DB_HOST=postgres
       - DB_PORT=5432
       - DB_NAME=app
       - DB_USER=postgres
       - DB_PASS=supersecretpassword
     depends_on:
-      - db
-  db:
+      - postgres
+  postgres:
     image: postgres:13-alpine
-    volumes:
-      - db_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=app
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=supersecretpassword
-
-volumes:
-  db_data:
-    driver: local

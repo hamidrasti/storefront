@@ -1,8 +1,24 @@
 root = true
 
 [*]
+charset = utf-8
 indent_size = 4
 indent_style = space
-insert_final_newline = false
-max_line_length = 120
+insert_final_newline = true
+trim_trailing_whitespace = true
+max_line_length = 79
 tab_width = 4
+
+ij_any_block_comment_add_space = true
+ij_any_block_comment_at_first_column = false
+ij_any_line_comment_add_space = true
+ij_any_line_comment_at_first_column = false
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{yml,yaml}]
+indent_size = 2
+
+# [docker-compose.yml]
+# indent_size = 4
