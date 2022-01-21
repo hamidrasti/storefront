@@ -72,15 +72,17 @@ class CollectionAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         return super().get_queryset(request).annotate(
-            products_count=Count('product')
+            products_count=Count('products')
         )
+
 
 @admin.register(models.Customer)
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ['first_name', 'last_name',  'membership', 'orders']
     list_editable = ['membership']
     list_per_page = 10
-    ordering = ['first_name', 'last_name']
+    list_select_related = ['user']
+    ordering = ['user__first_name', 'user__last_name']
     search_fields = ['first_name__istartswith', 'last_name__istartswith']
 
     @admin.display(ordering='orders_count')
@@ -98,12 +100,14 @@ class CustomerAdmin(admin.ModelAdmin):
             orders_count=Count('order')
         )
 
+
 class OrderItemInline(admin.TabularInline):
     autocomplete_fields = ['product']
-    extra = 0
     min_num = 1
     max_num = 10
     model = models.OrderItem
+    extra = 0
+
 
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
