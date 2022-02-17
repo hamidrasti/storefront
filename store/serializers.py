@@ -2,7 +2,8 @@ from decimal import Decimal
 from django.db import transaction
 from rest_framework import serializers
 from .signals import order_created
-from .models import Cart, CartItem, Customer, Order, OrderItem, Product, Collection, Review
+from .models import Cart, CartItem, Customer, Order, OrderItem, Product, \
+    Collection, Review
 
 
 class CollectionSerializer(serializers.ModelSerializer):
@@ -60,7 +61,8 @@ class CartSerializer(serializers.ModelSerializer):
     total_price = serializers.SerializerMethodField()
 
     def get_total_price(self, cart):
-        return sum([item.quantity * item.product.unit_price for item in cart.items.all()])
+        return sum([item.quantity * item.product.unit_price for item in
+                    cart.items.all()])
 
     class Meta:
         model = Cart

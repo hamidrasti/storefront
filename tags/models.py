@@ -10,9 +10,9 @@ class TaggedItemManager(models.Manager):
         return TaggedItem.objects \
             .select_related('tag') \
             .filter(
-                content_type=content_type,
-                object_id=obj_id
-            )
+            content_type=content_type,
+            object_id=obj_id
+        )
 
 
 class Tag(models.Model):

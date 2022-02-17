@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -18,10 +17,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='LikedItem',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True,
+                                           serialize=False,
+                                           verbose_name='ID')),
                 ('object_id', models.PositiveIntegerField()),
-                ('content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contenttypes.contenttype')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('content_type',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                   to='contenttypes.contenttype')),
+                ('user',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                   to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
